@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qwen-llm-deployment
+  labels:
+    app: qwen-llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qwen-llm
+  template:
+    metadata:
+      labels:
+        app: qwen-llm
+    spec:
+      containers:
+      - name: qwen-api
+        image: YOUR_DOCKER_USERNAME/qwen-llm-api:v1 # (Isme apna username baad mein badlenge)
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "500m"
+          limits:
+            memory: "900Mi" # 1GB RAM wale server ke liye strict control boundary
